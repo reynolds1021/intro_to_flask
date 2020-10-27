@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Hello, {{ customer_name }}</h1>
+
+<ul>
+    {% for key,item in items.items() %}
+        {% if item == 'Bread' %}
+            <li>{{ key }} - {{ item }}</li>
+        {% else %}
+            <li>{{ item }} - {{ key }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+{% endblock content %}
+   
