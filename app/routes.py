@@ -1,6 +1,11 @@
-from app import app
-from flask import render_template
+from app import app, db
+from flask import render_template, request, redirect, url_for
 
+# Import for Forms
+from app.forms import UserInfoForm
+
+# Import for Models
+from app.models import User
 
 @app.route('/')
 def index():
@@ -17,6 +22,27 @@ def index():
     }
     return render_template('index.html', **context)
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    return render_template('register.html')
+    form = UserInfoForm()
+    context = {
+        'form': form
+    }
+    if request.method == 'POST' and form.validate():
+
+        # Get Information
+        username = form.username.data
+        email = form.email.data
+        password = form.password.data
+
+        print(username, email, password)
+
+        # Create new instance of User
+        new_user = User(username, email, password)
+
+        # Add user to db
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for('index'))
+    return render_template('register.html', **context)
