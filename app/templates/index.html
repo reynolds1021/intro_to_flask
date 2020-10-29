@@ -2,8 +2,11 @@
 
 {% block content %}
 
-<h1>Hello, {{ customer_name }}</h1>
-
+{% if current_user.is_authenticated %}
+<h1>Hello, {{ current_user.username }}</h1>
+{% else %}
+<h1>Hello, please register for my cool site</h1>
+{% endif %}
 <ul>
     {% for key,item in items.items() %}
         {% if item == 'Bread' %}
