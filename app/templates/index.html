@@ -4,18 +4,17 @@
 
 {% if current_user.is_authenticated %}
 <h1>Hello, {{ current_user.username }}</h1>
+
+{% for post in posts %}
+    <h3><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a></h3>
+    <p>{{ post.content }}</p>
+{% endfor %}
+
 {% else %}
 <h1>Hello, please register for my cool site</h1>
+<p>To see posts, you must be logged in!</p>
 {% endif %}
-<ul>
-    {% for key,item in items.items() %}
-        {% if item == 'Bread' %}
-            <li>{{ key }} - {{ item }}</li>
-        {% else %}
-            <li>{{ item }} - {{ key }}</li>
-        {% endif %}
-    {% endfor %}
-</ul>
+
 
 {% endblock content %}
    
