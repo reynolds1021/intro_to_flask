@@ -10,20 +10,20 @@
                 <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('createposts') }}">Create a Post</a>
+                <a class="nav-link" href="{{ url_for('blog.createposts') }}">Create a Post</a>
             </li>
         </ul>
         <ul class="navbar-nav m1-auto mt-2 mt-lg-0">
             {% if current_user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
             </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
             </li>
             {% endif %}
         </ul>

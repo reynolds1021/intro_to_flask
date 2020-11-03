@@ -1,29 +1,34 @@
 from flask import Flask
-
 from config import Config
-
-# Import for Flask DB and Migrator
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
-# Import for Flask Login
 from flask_login import LoginManager
-
-# Import for Flask Mail
 from flask_mail import Mail, Message
 
-# Create instance of Flask class, name it app
-app = Flask(__name__)
-# Add configurations
-app.config.from_object(Config)
 
-# Create db and migrator
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+db = SQLAlchemy()
+migrate = Migrate()
+login = LoginManager()
+mail = Mail()
 
-login = LoginManager(app)
-login.login_view = 'login' # Specify what page to load for NON-authenticated users
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
 
-mail = Mail(app)
+    db.init_app(app)
+    migrate.init_app(app)
+    mail.init_app(app)
 
-from app import routes, models
+    login.init_app(app)
+    login.login_view = 'login'
+
+    with app.app_context():
+        from app.blueprints.blog import bp as blog
+        app.register_blueprint(blog)
+
+        from app.blueprints.auth import bp as auth
+        app.register_blueprint(auth)
+
+        from . import routes, models
+
+    return app
