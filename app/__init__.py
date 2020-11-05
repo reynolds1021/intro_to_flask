@@ -16,7 +16,7 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
 
     db.init_app(app)
-    migrate.init_app(app)
+    migrate.init_app(app, db)
     mail.init_app(app)
 
     login.init_app(app)
@@ -28,6 +28,9 @@ def create_app(config_class=Config):
 
         from app.blueprints.auth import bp as auth
         app.register_blueprint(auth)
+
+        from app.blueprints.shop import bp as shop
+        app.register_blueprint(shop)
 
         from . import routes, models
 

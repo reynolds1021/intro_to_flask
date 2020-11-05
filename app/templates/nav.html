@@ -15,6 +15,23 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('blog.createposts') }}">Create a Post</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('shop.get_products') }}">Marketplace</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('shop.cart') }}">
+                    <span>Cart</span>
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="badge badge-light">
+                        {% if cart %}
+                            {{ cart['items']|length }} | {{ '${:,.2f}'.format(cart['cart_total']) }}
+                        {% else %}
+                         0 | $0.00
+                         {% endif %}
+                        </span>
+                </a>
+            </li>
+
         </ul>
         <ul class="navbar-nav m1-auto mt-2 mt-lg-0">
             {% if current_user.is_authenticated %}

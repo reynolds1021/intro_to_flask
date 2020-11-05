@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Marketplace</h3>
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4">
+        <div class="card">
+            <img src="{{product.image}}" class="card-img-top" alt="{{product.name}}">
+            <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <div class="price text-success"><h5 class="mt-4">${{ '{:,.2f}'.format(product.price) }}</h5></div>
+            <a href="{{ url_for('shop.add_to_cart', id=product.id) }}" class="btn btn-primary">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+      {% endfor %}
+  </div>
+{% endblock content %}
