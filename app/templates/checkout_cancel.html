@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Thanks for not your order!</h3>
+    <p>
+    We appreciate not your business!
+    If you have any questions, please email
+    <a href="mailto:bstanton@codingtemple.com">bstanton@codingtemple.com</a>.
+    </p>
+    <div>
+        {{ stripe_info }}
+    </div>
+{% endblock %}
